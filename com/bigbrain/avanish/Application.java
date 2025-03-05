@@ -15,7 +15,6 @@ public class Application {
         while (!input.equals(QUIT)) {
             CommandHandler.parseCommand(input.trim().split(" "));
             input = scanner.nextLine();
-
         }
     }
 }
