@@ -1,16 +1,29 @@
 package com.bigbrain.avanish;
 
-public class CommandHandler {
+/**
+ * The type Command handler.
+ *
+ * @author uswup
+ */
+public final class CommandHandler {
 
-    public static final String LOAD = "load";
-    public static final String ADD = "add";
-    public static final String REMOVE = "remove";
-    public static final String NODE = "node";
-    public static final String EDGES = "edges";
-    public static final String RECOMMEND = "recommend";
+    private static final String LOAD = "load";
+    private static final String ADD = "add";
+    private static final String REMOVE = "remove";
+    private static final String NODE = "node";
+    private static final String EDGES = "edges";
+    private static final String RECOMMEND = "recommend";
 
+    private CommandHandler() {
+    }
+
+    /**
+     * Parse command.
+     *
+     * @param currentLine the current line
+     */
     public static void parseCommand(String[] currentLine) {
-        switch(currentLine[0]){
+        switch (currentLine[0]) {
             case LOAD:
                 break;
 
@@ -27,6 +40,9 @@ public class CommandHandler {
                 break;
 
             case RECOMMEND:
+                break;
+
+            default:
                 break;
 
 
