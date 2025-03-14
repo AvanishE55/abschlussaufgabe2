@@ -1,4 +1,4 @@
-package com.bigbrain.avanish;
+package com.bigbrain.avanish.commandhandling;
 
 /**
  * The type Command handler.
@@ -25,6 +25,8 @@ public final class CommandHandler {
     public static void parseCommand(String[] currentLine) {
         switch (currentLine[0]) {
             case LOAD:
+                CommandLoad.loadDatabase(currentLine[2]);
+
                 break;
 
             case ADD:
