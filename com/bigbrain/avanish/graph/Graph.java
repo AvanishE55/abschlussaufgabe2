@@ -1,7 +1,12 @@
 package com.bigbrain.avanish.graph;
 
-public class Graph extends Node{
-    protected Graph(String name) {
-        super(name);
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class Graph {
+    HashMap<String, Node> nodeHashMap;
+    HashMap<String, Edge> edgeHashMap;
+
+    public Graph() {
     }
 }

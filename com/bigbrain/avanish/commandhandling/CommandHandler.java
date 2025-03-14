@@ -1,5 +1,7 @@
 package com.bigbrain.avanish.commandhandling;
 
+import com.bigbrain.avanish.graph.Graph;
+
 /**
  * The type Command handler.
  *
@@ -13,6 +15,7 @@ public final class CommandHandler {
     private static final String NODE = "node";
     private static final String EDGES = "edges";
     private static final String RECOMMEND = "recommend";
+    private static Graph graph;
 
     private CommandHandler() {
     }
@@ -25,7 +28,7 @@ public final class CommandHandler {
     public static void parseCommand(String[] currentLine) {
         switch (currentLine[0]) {
             case LOAD:
-                CommandLoad.loadDatabase(currentLine[2]);
+                graph = CommandLoad.loadDatabase(currentLine[2]);
 
                 break;
 

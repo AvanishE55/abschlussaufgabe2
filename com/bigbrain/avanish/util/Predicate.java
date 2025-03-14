@@ -1,6 +1,6 @@
 package com.bigbrain.avanish.util;
 
-public enum Relationship {
+public enum Predicate {
     CONTAINS,
     CONTAINED_IN,
     PART_OF,
