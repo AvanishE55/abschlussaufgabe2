@@ -31,6 +31,7 @@ public abstract class Node {
      * @param edge the edge
      */
     public void addEdge(Edge edge) {
+        edges.add(edge);
 
     }
 

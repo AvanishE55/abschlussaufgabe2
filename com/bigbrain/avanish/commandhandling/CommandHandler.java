@@ -29,7 +29,7 @@ public final class CommandHandler {
     public void parseCommand(String[] currentLine) {
         switch (currentLine[0]) {
             case LOAD:
-                InputParser.loadDatabase(currentLine[2], graph);
+                InputParser.loadDatabase(currentLine[2], this.graph);
                 break;
 
             case ADD:

@@ -7,30 +7,45 @@ import com.bigbrain.avanish.util.Predicate;
  * @author uswup
  */
 public class Edge {
-    /**
-     * The From node.
-     */
-    Node fromNode;
-    /**
-     * The To node.
-     */
-    Node toNode;
-    /**
-     * The Predicate.
-     */
-    Predicate predicate;
+
+    private final Node sourceNode;
+    private final Node targetNode;
+
+    private final Predicate predicate;
 
     /**
      * Edge.
-     * @param fromNode  the from node
-     * @param toNode    the to node
-     * @param predicate the predicate
+     * @param sourceNode the from node
+     * @param predicate  the predicate
+     * @param targetNode the to node
      */
-    public Edge(Node fromNode, Node toNode, Predicate predicate) {
-        this.fromNode = fromNode;
-        this.toNode = toNode;
+    public Edge(Node sourceNode, Predicate predicate, Node targetNode) {
+        this.sourceNode = sourceNode;
         this.predicate = predicate;
+        this.targetNode = targetNode;
     }
 
+    /**
+     * Gets predicate.
+     * @return the predicate
+     */
+    public Predicate getPredicate() {
+        return predicate;
+    }
 
+    /**
+     * Gets target node.
+     * @return the target node
+     */
+    public Node getTargetNode() {
+        return targetNode;
+    }
+
+    /**
+     * Gets source node.
+     * @return the source node
+     */
+    public Node getSourceNode() {
+        return sourceNode;
+    }
 }

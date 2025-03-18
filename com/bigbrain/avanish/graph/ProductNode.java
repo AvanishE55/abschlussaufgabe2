@@ -8,11 +8,6 @@ import java.util.List;
  * @author uswup
  */
 public class ProductNode extends Node {
-    /**
-     * The My list.
-     */
-    public List<String> myList;
-
     private final int id;
 
     /**
@@ -23,5 +18,9 @@ public class ProductNode extends Node {
     public ProductNode(String name, int id) {
         super(name);
         this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 }

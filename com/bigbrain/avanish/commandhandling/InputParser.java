@@ -1,6 +1,7 @@
 package com.bigbrain.avanish.commandhandling;
 
 import com.bigbrain.avanish.graph.Graph;
+import com.bigbrain.avanish.graph.Node;
 import com.bigbrain.avanish.util.Predicate;
 
 import java.io.IOException;
@@ -35,6 +36,10 @@ public final class InputParser {
      * @param graph the graph
      */
     public static void loadDatabase(String path, Graph graph) {
+
+        //TODO implement checking if graph is successfully made
+        Graph tempGraph = new Graph();
+
         List<String> configFile;
 
         try {
@@ -45,12 +50,12 @@ public final class InputParser {
         }
 
         while (!configFile.isEmpty()) {
-            addToGraph(configFile.remove(0), graph);
+            addToGraph(configFile.remove(0), tempGraph);
         }
 
         System.out.print("Done parsing file");
 
-
+        graph = tempGraph;
     }
 
     private static void addToGraph(String currentLine, Graph graph) {
@@ -61,6 +66,7 @@ public final class InputParser {
         int predicateIndex = 0;
 
         for (String word : splitCurrentLine) {
+            word = word.toLowerCase();
             if (Predicate.getList().contains(word.toLowerCase())) {
                 predicateIndex = splitCurrentLine.indexOf(word);
             }
@@ -72,9 +78,12 @@ public final class InputParser {
         }
 
 
-        graph.addToGraph(graph.getOrCreateNode(splitCurrentLine.subList(0, predicateIndex)),
-                Predicate.valueOf(splitCurrentLine.get(predicateIndex)),
-                graph.getOrCreateNode(splitCurrentLine.subList(0, predicateIndex)));
+        Node sourceNode = graph.getOrCreateNode(splitCurrentLine.subList(0, predicateIndex));
+        Node targetNode = graph.getOrCreateNode(splitCurrentLine.subList(predicateIndex + 1, splitCurrentLine.toArray().length));
+
+        graph.add(sourceNode,
+                Predicate.getPredicate(splitCurrentLine.get(predicateIndex)),
+                targetNode);
 
 
     }

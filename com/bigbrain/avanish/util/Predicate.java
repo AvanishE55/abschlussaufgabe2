@@ -43,4 +43,27 @@ public enum Predicate {
     public static List<String> getList() {
         return PREDICATE_LIST;
     }
+
+    public static Predicate getPredicate(String s) {
+        return switch (s) {
+            case "contains" -> CONTAINS;
+            case "contained-in" -> CONTAINED_IN;
+            case "part-of" -> PART_OF;
+            case "has-part" -> HAS_PART;
+            case "successor-of" -> SUCCESSOR_OF;
+            case "predecessor-of" -> PREDECESSOR_OF;
+            default -> null;
+        };
+    }
+
+    public static Predicate getInversePredicate(Predicate predicate) {
+        return switch (predicate) {
+            case CONTAINED_IN -> CONTAINS;
+            case CONTAINS -> CONTAINED_IN;
+            case HAS_PART -> PART_OF;
+            case PART_OF -> HAS_PART;
+            case PREDECESSOR_OF -> SUCCESSOR_OF;
+            case SUCCESSOR_OF -> PREDECESSOR_OF;
+        };
+    }
 }
