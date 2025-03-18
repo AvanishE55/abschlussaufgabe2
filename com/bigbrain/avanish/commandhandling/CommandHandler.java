@@ -9,15 +9,15 @@ import com.bigbrain.avanish.graph.Graph;
  */
 public final class CommandHandler {
 
-    private static final String LOAD = "load";
-    private static final String ADD = "add";
-    private static final String REMOVE = "remove";
-    private static final String NODE = "node";
-    private static final String EDGES = "edges";
-    private static final String RECOMMEND = "recommend";
-    private static Graph graph;
+    private final String LOAD = "load";
+    private final String ADD = "add";
+    private final String REMOVE = "remove";
+    private final String NODE = "node";
+    private final String EDGES = "edges";
+    private final String RECOMMEND = "recommend";
+    private Graph graph;
 
-    private CommandHandler() {
+    public CommandHandler() {
     }
 
     /**
@@ -25,11 +25,10 @@ public final class CommandHandler {
      *
      * @param currentLine the current line
      */
-    public static void parseCommand(String[] currentLine) {
+    public void parseCommand(String[] currentLine) {
         switch (currentLine[0]) {
             case LOAD:
-                graph = CommandLoad.loadDatabase(currentLine[2]);
-
+                InputParser.loadDatabase(currentLine[2], graph);
                 break;
 
             case ADD:

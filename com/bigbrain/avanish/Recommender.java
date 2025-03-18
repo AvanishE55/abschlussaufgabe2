@@ -28,12 +28,15 @@ public final class Recommender {
     public static void main(String[] args) {
 
         scanner = new Scanner(System.in);
-
         String input = scanner.nextLine();
 
+        CommandHandler handler = new CommandHandler();
+
         while (!input.equals(QUIT)) {
-            CommandHandler.parseCommand(input.trim().split(" "));
+            handler.parseCommand(input.trim().split(" "));
             input = scanner.nextLine();
         }
+
+        scanner.close();
     }
 }
