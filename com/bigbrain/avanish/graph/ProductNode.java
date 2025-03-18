@@ -8,18 +8,20 @@ import java.util.List;
  * @author uswup
  */
 public class ProductNode extends Node {
-    private final int ID;
+    /**
+     * The My list.
+     */
     public List<String> myList;
 
+    private final int id;
 
     /**
      * Instantiates a new Product node.
-     *
      * @param name the name
      * @param id   the id
      */
     public ProductNode(String name, int id) {
         super(name);
-        ID = id;
+        this.id = id;
     }
 }

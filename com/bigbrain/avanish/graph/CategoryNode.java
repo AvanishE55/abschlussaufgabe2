@@ -1,6 +1,14 @@
 package com.bigbrain.avanish.graph;
 
-public class CategoryNode extends Node{
+/**
+ * The type Category node.
+ * @author uswup
+ */
+public class CategoryNode extends Node {
+    /**
+     * Instantiates a new Category node.
+     * @param name the name
+     */
     protected CategoryNode(String name) {
         super(name);
     }

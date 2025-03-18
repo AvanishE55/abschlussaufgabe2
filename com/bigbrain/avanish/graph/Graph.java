@@ -2,9 +2,6 @@ package com.bigbrain.avanish.graph;
 
 import com.bigbrain.avanish.util.Predicate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,6 +38,11 @@ public class Graph {
 
     }
 
+    /**
+     * Gets or create node.
+     * @param strings the strings
+     * @return the or create node
+     */
     public Node getOrCreateNode(List<String> strings) {
 
         return new CategoryNode("temp");

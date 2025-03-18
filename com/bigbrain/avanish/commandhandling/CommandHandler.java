@@ -4,25 +4,26 @@ import com.bigbrain.avanish.graph.Graph;
 
 /**
  * The type Command handler.
- *
  * @author uswup
  */
 public final class CommandHandler {
 
-    private final String LOAD = "load";
-    private final String ADD = "add";
-    private final String REMOVE = "remove";
-    private final String NODE = "node";
-    private final String EDGES = "edges";
-    private final String RECOMMEND = "recommend";
+    private static final String LOAD = "load";
+    private static final String ADD = "add";
+    private static final String REMOVE = "remove";
+    private static final String NODE = "node";
+    private static final String EDGES = "edges";
+    private static final String RECOMMEND = "recommend";
     private Graph graph;
 
+    /**
+     * Instantiates a new Command handler.
+     */
     public CommandHandler() {
     }
 
     /**
      * Parse command.
-     *
      * @param currentLine the current line
      */
     public void parseCommand(String[] currentLine) {
