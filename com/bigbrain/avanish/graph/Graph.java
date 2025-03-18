@@ -15,6 +15,10 @@ public class Graph {
 
 
     /**
+     * The constant STRING_ID.
+     */
+    public static final String STRING_ID = "id";
+    /**
      * The Node hash map.
      */
     HashMap<String, Node> nodeHashMap = new HashMap<>();
@@ -36,15 +40,17 @@ public class Graph {
      * @param targetNode the target node
      */
     public void add(Node sourceNode, Predicate predicate, Node targetNode) {
+        //Adding forward relationship
         if (!edgeHashMap.containsKey(sourceNode)) {
             edgeHashMap.put(sourceNode, new ArrayList<>());
         }
         edgeHashMap.get(sourceNode).add(new Edge(sourceNode, predicate, targetNode));
 
+        //Adding inverse relationship
         if (!edgeHashMap.containsKey(targetNode)) {
             edgeHashMap.put(targetNode, new ArrayList<>());
         }
-        edgeHashMap.get(sourceNode).add(new Edge(targetNode, Predicate.getInversePredicate(predicate), sourceNode));
+        edgeHashMap.get(targetNode).add(new Edge(targetNode, Predicate.getInversePredicate(predicate), sourceNode));
 
 
     }
@@ -61,8 +67,8 @@ public class Graph {
             return nodeHashMap.get(name);
         }
 
-        if (strings.contains("id")) {
-            int id = Integer.parseInt(strings.get((strings.indexOf("id") + 1)));
+        if (strings.contains(STRING_ID)) {
+            int id = Integer.parseInt(strings.get((strings.indexOf(STRING_ID) + 1)));
             ProductNode productNode = new ProductNode(name, id);
             nodeHashMap.put(name, productNode);
             return productNode;
@@ -71,7 +77,11 @@ public class Graph {
             nodeHashMap.put(name, categoryNode);
             return categoryNode;
         }
+    }
 
-
+    /**
+     * Remove.
+     */
+    public void remove() {
     }
 }

@@ -1,8 +1,5 @@
 package com.bigbrain.avanish.graph;
 
-
-import java.util.List;
-
 /**
  * The type Product node.
  * @author uswup
@@ -20,6 +17,10 @@ public class ProductNode extends Node {
         this.id = id;
     }
 
+    /**
+     * Gets id.
+     * @return the id
+     */
     public int getId() {
         return id;
     }

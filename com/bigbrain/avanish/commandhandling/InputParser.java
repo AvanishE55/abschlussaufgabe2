@@ -27,18 +27,22 @@ public final class InputParser {
      */
     static final String ERROR_MESSAGE = "ERROR";
 
-    private InputParser() {
+    /**
+     * Instantiates a new Input parser.
+     */
+    public InputParser() {
     }
 
     /**
      * Load database.
-     * @param path  the path
-     * @param graph the graph
+     * @param path          the path
+     * @param originalGraph the original graph
+     * @return the graph
      */
-    public static void loadDatabase(String path, Graph graph) {
+    public Graph loadDatabase(String path, Graph originalGraph) {
 
         //TODO implement checking if graph is successfully made
-        Graph tempGraph = new Graph();
+        Graph graph = new Graph();
 
         List<String> configFile;
 
@@ -46,35 +50,46 @@ public final class InputParser {
             configFile = Files.readAllLines(Paths.get(path));
         } catch (IOException e) {
             System.out.println(ERROR_MESSAGE);
-            return;
+            return originalGraph;
         }
 
-        while (!configFile.isEmpty()) {
-            addToGraph(configFile.remove(0), tempGraph);
+        boolean addSuccess = true;
+
+        while (!configFile.isEmpty() && addSuccess) {
+            addSuccess = addToGraph(configFile.remove(0), graph);
         }
 
-        System.out.print("Done parsing file");
-
-        graph = tempGraph;
+        if (addSuccess) {
+            return graph;
+        } else {
+            return originalGraph;
+        }
     }
 
-    private static void addToGraph(String currentLine, Graph graph) {
-
+    /**
+     * Add to graph.
+     * @param currentLine the current line
+     * @param graph       the graph
+     * @return the boolean
+     */
+    public boolean addToGraph(String currentLine, Graph graph) {
         ArrayList<String> splitCurrentLine = new ArrayList<>(Arrays.asList(currentLine.trim().split(REGEX_SPLIT_LINE)));
         splitCurrentLine.removeAll(Collections.singleton(""));
 
         int predicateIndex = 0;
 
         for (String word : splitCurrentLine) {
-            word = word.toLowerCase();
+//            word = word.toLowerCase();
             if (Predicate.getList().contains(word.toLowerCase())) {
                 predicateIndex = splitCurrentLine.indexOf(word);
             }
         }
 
+        //TODO implement regex checking of the names
+
         if (predicateIndex == 0) {
             System.out.println("ERROR predicate not found");
-            return;
+            return false;
         }
 
 
@@ -85,6 +100,6 @@ public final class InputParser {
                 Predicate.getPredicate(splitCurrentLine.get(predicateIndex)),
                 targetNode);
 
-
+        return true;
     }
 }

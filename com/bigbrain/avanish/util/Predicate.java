@@ -44,6 +44,11 @@ public enum Predicate {
         return PREDICATE_LIST;
     }
 
+    /**
+     * Gets predicate.
+     * @param s the s
+     * @return the predicate
+     */
     public static Predicate getPredicate(String s) {
         return switch (s) {
             case "contains" -> CONTAINS;
@@ -56,6 +61,11 @@ public enum Predicate {
         };
     }
 
+    /**
+     * Gets inverse predicate.
+     * @param predicate the predicate
+     * @return the inverse predicate
+     */
     public static Predicate getInversePredicate(Predicate predicate) {
         return switch (predicate) {
             case CONTAINED_IN -> CONTAINS;
