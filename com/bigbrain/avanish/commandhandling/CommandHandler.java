@@ -2,8 +2,6 @@ package com.bigbrain.avanish.commandhandling;
 
 import com.bigbrain.avanish.graph.Graph;
 
-import java.util.Arrays;
-
 /**
  * The type Command handler.
  * @author uswup
@@ -28,20 +26,22 @@ public final class CommandHandler {
 
     /**
      * Parse command.
-     * @param currentLine the current line
+     * @param input the input
      */
-    public void parseCommand(String[] currentLine) {
+    public void parseCommand(String input) {
+        String[] currentLine = InputParser.splitLine(input);
+        
         switch (currentLine[0]) {
             case LOAD:
                 graph = inputParser.loadDatabase(currentLine[2], graph);
                 break;
 
             case ADD:
-                inputParser.addToGraph(Arrays.toString(currentLine), this.graph);
+                inputParser.addToGraph(currentLine[1], this.graph);
                 break;
 
             case REMOVE:
-                graph.remove();
+                inputParser.removeFromGraph(currentLine[1], this.graph);
                 break;
 
             case NODE:

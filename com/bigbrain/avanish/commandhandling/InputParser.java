@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,20 +16,31 @@ import java.util.List;
  * @author uswup
  */
 public final class InputParser {
-    /**
-     * The constant REGEX_SPLIT_LINE.
-     */
-    public static final String REGEX_SPLIT_LINE = "[ (=)]";
-
-    /**
-     * The Error message.
-     */
-    static final String ERROR_MESSAGE = "ERROR";
+    private static final String ERROR_MESSAGE = "ERROR";
+    private static final String REGEX_SPLIT_LINE = "[ (=)]";
+    private static final List<String> REMOVE_LIST = List.of(new String[]{"", "add", "remove"});
 
     /**
      * Instantiates a new Input parser.
      */
     public InputParser() {
+    }
+
+    /**
+     * Splits input line. For everything except command load it splits it by empty spaces only once so that the parsing can be done later.
+     * @param input the input
+     * @return the string [ ]
+     */
+    public static String[] splitLine(String input) {
+        String[] returnArray = new String[0];
+
+        if (input.startsWith("load")) {
+            returnArray = input.split(" ");
+        } else {
+            returnArray = input.split(" ", 2);
+        }
+
+        return returnArray;
     }
 
     /**
@@ -40,10 +50,7 @@ public final class InputParser {
      * @return the graph
      */
     public Graph loadDatabase(String path, Graph originalGraph) {
-
-        //TODO implement checking if graph is successfully made
         Graph graph = new Graph();
-
         List<String> configFile;
 
         try {
@@ -73,19 +80,19 @@ public final class InputParser {
      * @return the boolean
      */
     public boolean addToGraph(String currentLine, Graph graph) {
-        ArrayList<String> splitCurrentLine = new ArrayList<>(Arrays.asList(currentLine.trim().split(REGEX_SPLIT_LINE)));
-        splitCurrentLine.removeAll(Collections.singleton(""));
+
+        ArrayList<String> addParams = new ArrayList<>(Arrays.asList(currentLine.trim().split(REGEX_SPLIT_LINE)));
+        addParams.removeAll(REMOVE_LIST);
 
         int predicateIndex = 0;
 
-        for (String word : splitCurrentLine) {
-//            word = word.toLowerCase();
+        for (String word : addParams) {
             if (Predicate.getList().contains(word.toLowerCase())) {
-                predicateIndex = splitCurrentLine.indexOf(word);
+                predicateIndex = addParams.indexOf(word);
             }
         }
 
-        //TODO implement regex checking of the names
+        //Do implement regex checking of the names
 
         if (predicateIndex == 0) {
             System.out.println("ERROR predicate not found");
@@ -93,12 +100,23 @@ public final class InputParser {
         }
 
 
-        Node sourceNode = graph.getOrCreateNode(splitCurrentLine.subList(0, predicateIndex));
-        Node targetNode = graph.getOrCreateNode(splitCurrentLine.subList(predicateIndex + 1, splitCurrentLine.toArray().length));
+        Node sourceNode = graph.getOrCreateNode(addParams.subList(0, predicateIndex));
+        Predicate predicate = Predicate.getPredicate(addParams.get(predicateIndex));
+        Node targetNode = graph.getOrCreateNode(addParams.subList(predicateIndex + 1, addParams.toArray().length));
 
-        graph.add(sourceNode,
-                Predicate.getPredicate(splitCurrentLine.get(predicateIndex)),
-                targetNode);
+        if (sourceNode == null || targetNode == null || predicate ==null) {
+            return false;
+        }
+
+        graph.add(sourceNode, predicate, targetNode);
+        graph.add(targetNode, Predicate.getInversePredicate(predicate), sourceNode);
+
+        return true;
+    }
+
+    public boolean removeFromGraph(String currentLine, Graph graph) {
+
+
 
         return true;
     }

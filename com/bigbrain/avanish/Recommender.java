@@ -33,7 +33,7 @@ public final class Recommender {
         CommandHandler handler = new CommandHandler();
 
         while (!input.equals(QUIT)) {
-            handler.parseCommand(input.trim().split(" "));
+            handler.parseCommand(input.trim());
             input = scanner.nextLine();
         }
 
